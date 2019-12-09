@@ -24,9 +24,6 @@ public class DoctorApplication {
 		String menu = "";
 		menu += "<ul>\n";
 		menu += "<li>\n";
-		menu += "<a href=\"doctor/0\">Doctor (other)</a>\n";
-		menu += "</li>\n";
-		menu += "<li>\n";
 		menu += "<a href=\"doctor/9\">Doctor9</a>\n";
 		menu += "</li>\n";
 		menu += "<li>\n";
@@ -49,35 +46,51 @@ public class DoctorApplication {
 	@ResponseBody
 	public ResponseEntity<String> doctor(@PathVariable int number) {
 		String name = "";
-		if (number <= 8) {	
+		if (number <= 8 && number > 0) {	
 			throw new ResponseStatusException(HttpStatus.SEE_OTHER, "See another doctor!");
 //			return new ResponseEntity<String>(HttpStatus.SEE_OTHER);
 		} else {
 			switch (number) {
 			case 9:
-				name = "<h3>Christopher Eccleston</h3>";
-				name += "<a href='/'>back to root</a>";
+				name = "{"
+						+ "	\"firname\": \"Christopher\",<br>"
+						+ " \"lastname\": \"Eccleston\",<br>"
+						+ " \"isAlive\": true,<br>"
+						+ "}<br>";
 				break;
 			case 10:
-				name = "<h3>David Tennant</h3>";
-				name += "<a href='/'>back to root</a>";
+				name = "{"
+					+ "	\"firname\": \"David\",<br>"
+					+ " \"lastname\": \"Tennant\",<br>"
+					+ " \"isAlive\": false,<br>"
+					+ "}<br>";
 				break;
 			case 11:
-				name = "<h3>Matt Smith</h3>";
-				name += "<a href='/'>back to root</a>";
+				name = "{"
+						+ "	\"firname\": \"Matt\",<br>"
+						+ " \"lastname\": \"Smith\",<br>"
+						+ " \"isAlive\": false,<br>"
+						+ "}<br>";
 				break;
 			case 12:
-				name = "<h3>Peter Capaldi</h3>";
-				name += "<a href='/'>back to root</a>";
+				name = "{"
+						+ "	\"firname\": \"Peter\",<br>"
+						+ " \"lastname\": \"Capaldi\",<br>"
+						+ " \"isAlive\": false,<br>"
+						+ "}<br>";
 				break;
 			case 13:
-				name = "<h3>Jodie Whittaker</h3>";
-				name += "<a href='/'>back to root</a>";
+				name = "{"
+						+ "	\"firname\": \"Jodie\",<br>"
+						+ " \"lastname\": \"Whittaker\",<br>"
+						+ " \"isAlive\": true,<br>"
+						+ "}<br>";
 				break;
 			default:
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Impossible to retrieve the incarnation " + number);
 			}
 		}
+		name += "<p><a href='/'>back to root</a></p>";
 		return ResponseEntity.ok(name);
 	}
 }
